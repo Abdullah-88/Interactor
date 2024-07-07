@@ -1,3 +1,3 @@
 # Interactor
 
-This should not work yet it seems to be working
+Rethinking Transformer Architecture with Parameter Free Dot Product, Layer Normalization as Nonlinearity and Linear Projection Parametrized Memory
