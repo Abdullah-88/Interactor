@@ -9,15 +9,22 @@ class MemoryUnit(nn.Module):
     def __init__(self,dim):
         super().__init__()
         
-        self.mem = nn.Linear(dim,dim)     
-        self.norm = nn.LayerNorm(dim)
-        
+           
+        self.norm_token = nn.LayerNorm(dim)
+        self.proj_1 =  nn.Linear(dim,dim)
+        self.proj_2 =  nn.Linear(dim,dim)
+        self.proj_3 = nn.Linear(dim,dim)  
              	   
     def forward(self, x):
     
-    	x = self.norm(x)
-    	x = self.mem(x)
-    	x = self.norm(x)
+    	x = self.norm_token(x)    	
+    	u, v = x, x 
+    	u = self.proj_1(u)
+    	u = self.norm_token(u)
+    	v = self.proj_2(v)
+    	g = u * v
+    	x = self.proj_3(g)
+    	x = self.norm_token(x)
     	
     	return x
 
