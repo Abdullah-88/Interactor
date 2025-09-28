@@ -14,36 +14,39 @@ class MemoryUnit(nn.Module):
         self.proj_1 =  nn.Linear(dim,dim)
         self.proj_2 =  nn.Linear(dim,dim)
         self.proj_3 = nn.Linear(dim,dim)  
+        self.gelu = nn.GELU()
              	   
     def forward(self, x):
     
     	x = self.norm_token(x)    	
     	u, v = x, x 
     	u = self.proj_1(u)
-    	u = self.norm_token(u)
+    	u = self.gelu(u)
     	v = self.proj_2(v)
     	g = u * v
     	x = self.proj_3(g)
-    	x = self.norm_token(x)
+    	
     	
     	return x
 
 class InteractionUnit(nn.Module):
     def __init__(self,dim,score_dim):
         super().__init__()
-        
-             
+            
         self.norm_token = nn.LayerNorm(dim)       
-        self.norm_score = nn.LayerNorm(score_dim)
+        self.gelu = nn.GELU()
              	   
     def forward(self, x):
     
     	x = self.norm_token(x)
-    	q,k,v = x,x,x
-    	score = torch.matmul(q, k.transpose(-1, -2))
-    	interaction = self.norm_score(score)    
-    	x = torch.matmul(interaction,v)
-    	x = self.norm_token(x)
+    	dim0 = x.shape[0]
+    	dim1 = x.shape[1]
+    	dim2 = x.shape[2]
+    	x = x.reshape([dim0,dim1*dim2])
+    	x = self.gelu(x)
+    	x = x.reshape([dim0,dim1,dim2])
+    	
+    	
     	
     	return x
 
@@ -86,6 +89,13 @@ class Interactor(nn.Module):
     def forward(self, x):
        
         return self.model(x)
+
+
+
+
+
+
+
 
 
 
