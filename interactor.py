@@ -30,7 +30,7 @@ class MemoryUnit(nn.Module):
     	return x
 
 class InteractionUnit(nn.Module):
-    def __init__(self,dim,score_dim):
+    def __init__(self,dim):
         super().__init__()
             
         self.norm_token = nn.LayerNorm(dim)       
