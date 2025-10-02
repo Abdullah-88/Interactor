@@ -51,12 +51,12 @@ class InteractionUnit(nn.Module):
     	return x
 
 class InteractorBlock(nn.Module):
-    def __init__(self, d_model, num_tokens):
+    def __init__(self, d_model):
         super().__init__()
        
          
         self.memory = MemoryUnit(d_model)
-        self.interaction = InteractionUnit(d_model,num_tokens)
+        self.interaction = InteractionUnit(d_model)
         
     def forward(self, x):
                   
@@ -79,11 +79,11 @@ class InteractorBlock(nn.Module):
 
 
 class Interactor(nn.Module):
-    def __init__(self, d_model,num_tokens, num_layers):
+    def __init__(self, d_model, num_layers):
         super().__init__()
         
         self.model = nn.Sequential(
-            *[InteractorBlock(d_model,num_tokens) for _ in range(num_layers)]
+            *[InteractorBlock(d_model) for _ in range(num_layers)]
         )
 
     def forward(self, x):
