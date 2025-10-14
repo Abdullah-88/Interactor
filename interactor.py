@@ -9,9 +9,9 @@ class MappingUnit(nn.Module):
         
            
         self.norm_token = nn.LayerNorm(dim)
-        self.proj_1 =  nn.Linear(dim,dim,bias= False)
-        self.proj_2 =  nn.Linear(dim,dim,bias= False)
-        self.proj_3 = nn.Linear(dim,dim,bias= False)  
+        self.proj_1 =  nn.Linear(dim,dim,bias = False)
+        self.proj_2 =  nn.Linear(dim,dim,bias = False)
+        self.proj_3 = nn.Linear(dim,dim,bias = False)  
         self.gelu = nn.GELU()
              	   
     def forward(self, x):
