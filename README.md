@@ -1,5 +1,5 @@
 # Interactor
 
-Rethinking Transformer Architecture with Parameter Free Activation Based Alternative to Attention and Gated Linear Unit Parametrized Memory
+Rethinking Transformer Architecture with Context Wide Parameter Free Activation Based Alternative to Attention
 
 Paper Coming Soon
