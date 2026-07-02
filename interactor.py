@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 
-       
+
 
 class MappingUnit(nn.Module):
     def __init__(self,dim):
