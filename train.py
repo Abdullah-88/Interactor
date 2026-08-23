@@ -50,10 +50,11 @@ class InteractorImageClassification(Interactor):
         in_channels=3,
         num_classes=10,     
         d_model = 256,
+        d_ffn = 512,
         num_layers=4,
                
     ):
-        super().__init__(d_model, num_layers)
+        super().__init__(d_model, d_ffn, num_layers)
         self.patcher = nn.Conv2d(
             in_channels, d_model, kernel_size=patch_size, stride=patch_size
         )
