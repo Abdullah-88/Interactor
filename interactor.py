@@ -2,13 +2,13 @@ import torch
 from torch import nn
 
 class MappingUnit(nn.Module):
-    def __init__(self,dim):
+    def __init__(self,dim, hidden_dim):
         super().__init__()
                    
         self.norm_token = nn.LayerNorm(dim)
-        self.proj_1 =  nn.Linear(dim,dim,bias = False)
-        self.proj_2 =  nn.Linear(dim,dim,bias = False)
-        self.proj_3 = nn.Linear(dim,dim,bias = False)  
+        self.proj_1 =  nn.Linear(dim, hidden_dim, bias = False)
+        self.proj_2 =  nn.Linear(dim, hidden_dim, bias = False)
+        self.proj_3 = nn.Linear(hidden_dim, dim, bias = False)  
         self.gelu = nn.GELU()
              	   
     def forward(self, x):
@@ -43,10 +43,10 @@ class InteractionUnit(nn.Module):
     	return x
 
 class InteractorBlock(nn.Module):
-    def __init__(self, d_model):
+    def __init__(self, d_model, d_ffn):
         super().__init__()
                 
-        self.mapping = MappingUnit(d_model)
+        self.mapping = MappingUnit(d_model, d_ffn)
         self.interaction = InteractionUnit(d_model)
         
     def forward(self, x):
@@ -66,7 +66,7 @@ class InteractorBlock(nn.Module):
         return out
 
 class Interactor(nn.Module):
-    def __init__(self, d_model, num_layers):
+    def __init__(self, d_model, d_ffn, num_layers):
         super().__init__()
         
         self.model = nn.Sequential(
