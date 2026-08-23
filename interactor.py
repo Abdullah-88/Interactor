@@ -70,7 +70,7 @@ class Interactor(nn.Module):
         super().__init__()
         
         self.model = nn.Sequential(
-            *[InteractorBlock(d_model) for _ in range(num_layers)]
+            *[InteractorBlock(d_model, d_ffn) for _ in range(num_layers)]
         )
 
     def forward(self, x):
