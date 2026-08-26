@@ -24,7 +24,7 @@ class MappingUnit(nn.Module):
     	return x
 
 class InteractionUnit(nn.Module):
-    def __init__(self,dim):
+    def __init__(self, dim):
         super().__init__()
             
         self.norm_token = nn.LayerNorm(dim)       
@@ -36,9 +36,9 @@ class InteractionUnit(nn.Module):
     	dim0 = x.shape[0]
     	dim1 = x.shape[1]
     	dim2 = x.shape[2]
-    	x = x.reshape([dim0,dim1*dim2])
+    	x = x.reshape([dim0, dim1 * dim2])
     	x = self.gelu(x)
-    	x = x.reshape([dim0,dim1,dim2])
+    	x = x.reshape([dim0, dim1, dim2])
     	    	
     	return x
 
